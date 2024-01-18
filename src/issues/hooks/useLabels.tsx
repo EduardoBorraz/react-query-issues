@@ -11,6 +11,19 @@ const getLabels = async (): Promise<Label[]> => {
 };
 
 export const useLabels = () => {
-  const labelQuery = useQuery({ queryKey: ["labels"], queryFn: getLabels });
+  const labelQuery = useQuery({
+    queryKey: ["labels"],
+    queryFn: getLabels,
+    /* placeholderData: [
+      {
+        id: 791921801,
+        node_id: "MDU6TGFiZWw3OTE5MjE4MDE",
+        url: "https://api.github.com/repos/facebook/react/labels/%E2%9D%A4%EF%B8%8F",
+        name: "❤️",
+        color: "ffffff",
+        default: false,
+      },
+    ], */
+  });
   return { labelQuery };
 };
