@@ -6,7 +6,9 @@ import Loading from "../../shared/components/Loading";
 
 export const ListView = () => {
   const [selectedLabel, setSelectedLabel] = useState<string[]>([]);
-  const { issuesQuery } = useIssues();
+  const [state, setState] = useState<string>();
+
+  const { issuesQuery } = useIssues({ state, labels: selectedLabel });
 
   const onLabelChange = (labelName: string) => {
     if (selectedLabel?.includes(labelName)) {
@@ -22,7 +24,11 @@ export const ListView = () => {
         {issuesQuery.isLoading ? (
           <Loading />
         ) : (
-          <IssueList issues={issuesQuery.data || []} />
+          <IssueList
+            issues={issuesQuery.data || []}
+            state={state}
+            onStateChange={(newState) => setState(newState)}
+          />
         )}
       </div>
 

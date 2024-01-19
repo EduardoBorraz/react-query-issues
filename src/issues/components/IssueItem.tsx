@@ -14,6 +14,7 @@ export const IssueItem = ({ issue: fullIssue }: Props) => {
     number,
     state,
     comments,
+    labels,
     user: { login, avatar_url },
   } = fullIssue;
 
@@ -56,6 +57,21 @@ export const IssueItem = ({ issue: fullIssue }: Props) => {
             #{number} opened 2 days ago by{" "}
             <span className="fw-bold">{login}</span>
           </span>
+          <div>
+            {labels.map((label) => (
+              <span
+                key={label.id}
+                className="badge rounded-pill m-1"
+                style={{
+                  border: `1px solid #${label.color}`,
+                  color: `#${label.color}`,
+                  fontWeight: "900",
+                }}
+              >
+                {label.name}
+              </span>
+            ))}
+          </div>
         </div>
 
         <div className="d-flex align-items-center">
