@@ -8,7 +8,10 @@ export const ListView = () => {
   const [selectedLabel, setSelectedLabel] = useState<string[]>([]);
   const [state, setState] = useState<string>();
 
-  const { issuesQuery } = useIssues({ state, labels: selectedLabel });
+  const { issuesQuery, page, nextDataPage, prevDataPage } = useIssues({
+    state,
+    labels: selectedLabel,
+  });
 
   const onLabelChange = (labelName: string) => {
     if (selectedLabel?.includes(labelName)) {
@@ -30,6 +33,24 @@ export const ListView = () => {
             onStateChange={(newState) => setState(newState)}
           />
         )}
+
+        <div className="d-flex justify-content-between align-items-center mt-3">
+          <button
+            className="btn btn-primary"
+            disabled={issuesQuery.isFetching || page === 1}
+            onClick={prevDataPage}
+          >
+            Prev
+          </button>
+          <span>{page}</span>
+          <button
+            className="btn btn-primary"
+            disabled={issuesQuery.isFetching}
+            onClick={nextDataPage}
+          >
+            Next
+          </button>
+        </div>
       </div>
 
       <div className="col-4">
