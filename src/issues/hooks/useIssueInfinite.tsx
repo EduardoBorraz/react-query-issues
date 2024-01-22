@@ -40,15 +40,13 @@ const getIssues = async ({
 
 export default function useIssueInfinite({ state, labels }: Props) {
   const issuesQuery = useInfiniteQuery({
-    queryKey: ["issues", "infinite", { state, labels, page: 1 }],
+    queryKey: ["issues", "infinite", { state, labels }],
     queryFn: (data) => getIssues(data),
-    getNextPageParam: () => {
-      return null;
+    getNextPageParam: (lastPage, pages) => {
+      if (lastPage.length === 0) return;
+      return pages.length + 1;
     },
-    getPreviousPageParam: () => {
-      return null;
-    },
-    initialPageParam: undefined,
+    initialPageParam: 0,
   });
 
   return { issuesQuery };
